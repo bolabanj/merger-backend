@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -18,7 +19,12 @@ import java.util.List;
 public class UserRepository {
 
     public static Logger LOG = LoggerFactory.getLogger(UserRepository.class);
+    public static final String DATABASEDIR = "data";
     public UserRepository() {
+        File file = new File(DATABASEDIR);
+        if(!file.exists()){
+            file.mkdirs();
+        }
         Path path = Paths.get(DATABASE);
         try {
             Files.createFile(path);
